@@ -61,10 +61,10 @@ switch ($_GET["op"]) {
         echo json_encode($results);
         break;
 
-    // Agregar el caso 'default' para manejar valores inesperados
+    // Caso default para manejar valores inesperados
     default:
-        // Esto se ejecutará si 'op' no coincide con ninguna de las opciones anteriores
-        echo "Operación no válida o no definida.";
+        // Se puede agregar un mensaje de error o un log para detectar si hay un valor inesperado en la variable 'op'
+        echo json_encode(array("error" => "Operación no válida o no definida. Se recibió un valor desconocido en el parámetro 'op'."));
         break;
 }
-?>                     
+?>
