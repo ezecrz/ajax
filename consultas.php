@@ -64,15 +64,7 @@ switch ($_GET["op"]) {
     // Agregar el caso 'default' para manejar valores inesperados
     default:
         // Esto se ejecutará si 'op' no coincide con ninguna de las opciones anteriores
-        // Podrías agregar un registro o una notificación en caso de que se pase un valor no esperado.
-        // Esto es útil en caso de que desees identificar las entradas no controladas.
-
-        // Aquí agregamos un mensaje detallado para explicar por qué no se realiza ninguna acción.
-        // También podemos registrar este evento o notificarlo, si es necesario.
-        error_log("Operación no válida recibida: " . $_GET["op"]); // Esto logueará el valor inesperado para depuración.
-        
-        // Mensaje de respuesta más detallado.
-        echo "Operación no válida o no definida. Por favor, revise la solicitud.";
+        echo "Operación no válida o no definida.";
         break;
 }
-?>
+?>                     
