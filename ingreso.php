@@ -63,18 +63,21 @@ switch ($_GET["op"]) {
                 <th>Precio Venta</th>
                 <th>Subtotal</th>
                </thead>';
-        while ($reg = $rspta->fetch_object()) {
-            echo '<tr class="filas">
-                    <td></td>
-                    <td>' . $reg->nombre . '</td>
-                    <td>' . $reg->cantidad . '</td>
-                    <td>' . $reg->precio_compra . '</td>
-                    <td>' . $reg->precio_venta . '</td>
-                    <td>' . $reg->precio_compra * $reg->cantidad . '</td>
-                    <td></td>
-                  </tr>';
-            $total = $total + ($reg->precio_compra * $reg->cantidad);
-        }
+       define('TD_SEPARATOR', '</td><td>'); // Definimos una constante para la cadena repetida
+
+while ($reg = $rspta->fetch_object()) {
+    echo '<tr class="filas">
+            <td></td>' . 
+            '<td>' . $reg->nombre . TD_SEPARATOR .
+            '<td>' . $reg->cantidad . TD_SEPARATOR .
+            '<td>' . $reg->precio_compra . TD_SEPARATOR .
+            '<td>' . $reg->precio_venta . TD_SEPARATOR .
+            '<td>' . $reg->precio_compra * $reg->cantidad . TD_SEPARATOR .
+            '<td></td>
+          </tr>';
+    $total = $total + ($reg->precio_compra * $reg->cantidad);
+}
+
         echo '<tfoot>
                 <th>TOTAL</th>
                 <th></th>
