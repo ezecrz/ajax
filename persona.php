@@ -12,18 +12,22 @@ $direccion=isset($_POST["direccion"])? limpiarCadena($_POST["direccion"]):"";
 $telefono=isset($_POST["telefono"])? limpiarCadena($_POST["telefono"]):"";
 $email=isset($_POST["email"])? limpiarCadena($_POST["email"]):"";
 
-switch ($_GET["op"]) {
-	case 'guardaryeditar':
-	if (empty($idpersona)) {
-		$rspta=$persona->insertar($tipo_persona,$nombre,$tipo_documento,$num_documento,$direccion,$telefono,$email);
-		echo $rspta ? "Datos registrados correctamente" : "No se pudo registrar los datos";
-	}else{
-         $rspta=$persona->editar($idpersona,$tipo_persona,$nombre,$tipo_documento,$num_documento,$direccion,$telefono,$email);
-		echo $rspta ? "Datos actualizados correctamente" : "No se pudo actualizar los datos";
-	}
-		break;
-	
+switch ($_GET["op"]) { 
+    case 'guardaryeditar':
+        if (empty($idpersona)) {
+            $rspta = $persona->insertar($tipo_persona, $nombre, $tipo_documento, $num_documento, $direccion, $telefono, $email);
+            echo $rspta ? "Datos registrados correctamente" : "No se pudo registrar los datos";
+        } else {
+            $rspta = $persona->editar($idpersona, $tipo_persona, $nombre, $tipo_documento, $num_documento, $direccion, $telefono, $email);
+            echo $rspta ? "Datos actualizados correctamente" : "No se pudo actualizar los datos";
+        }
+        break;
 
+    // Add the default case
+    default:
+        echo "Operación no reconocida.";
+        break;
+}
 	case 'eliminar':
 		$rspta=$persona->eliminar($idpersona);
 		echo $rspta ? "Datos eliminados correctamente" : "No se pudo eliminar los datos";
