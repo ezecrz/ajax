@@ -17,17 +17,24 @@ $clave=isset($_POST["clave"])? limpiarCadena($_POST["clave"]):"";
 $imagen=isset($_POST["imagen"])? limpiarCadena($_POST["imagen"]):"";
 
 switch ($_GET["op"]) {
-	case 'guardaryeditar':
+    case 'guardaryeditar':
+        if (!file_exists($_FILES['imagen']['tmp_name']) || !is_uploaded_file($_FILES['imagen']['tmp_name'])) {
+            $imagen = $_POST["imagenactual"];
+        } else {
+            $ext = explode(".", $_FILES["imagen"]["name"]);
+            if ($_FILES['imagen']['type'] == "image/jpg" || $_FILES['imagen']['type'] == "image/jpeg" || $_FILES['imagen']['type'] == "image/png") {
+                $imagen = round(microtime(true)) . '.' . end($ext);
+                move_uploaded_file($_FILES["imagen"]["tmp_name"], "../files/usuarios/" . $imagen);
+            }
+        }
+        break;
 
-	if (!file_exists($_FILES['imagen']['tmp_name'])|| !is_uploaded_file($_FILES['imagen']['tmp_name'])) {
-		$imagen=$_POST["imagenactual"];
-	}else{
-		$ext=explode(".", $_FILES["imagen"]["name"]);
-		if ($_FILES['imagen']['type']=="image/jpg" || $_FILES['imagen']['type']=="image/jpeg" || $_FILES['imagen']['type']=="image/png") {
-			$imagen=round(microtime(true)).'.'. end($ext);
-			move_uploaded_file($_FILES["imagen"]["tmp_name"], "../files/usuarios/".$imagen);
-		}
-	}
+    // Default case to handle unrecognized operations
+    default:
+        echo "Operación no reconocida.";
+        break;
+}
+
 
 	//Hash SHA256 para la contraseña
 	$clavehash=hash("SHA256", $clave);
